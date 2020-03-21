@@ -1,0 +1,36 @@
+---
+title: 'Peer-graded Assignment: R Markdown and Leaflet'
+author: "Kevin Bitinsky"
+date: "March 21, 2020"
+always_allow_html: yes
+---
+
+# JunoFest
+The [Junos](https://junoawards.ca/) are Canada's own music awards, and [Junofest](https://www.facebook.com/JUNOfest/) is the musical celebration that occurs before the actual award show.
+
+This is a map of all the JunoFest venues this year (2020)
+
+```{r, echo = FALSE, warning = FALSE}
+library(leaflet)
+
+JunosIcon <- makeIcon(
+  iconUrl = "icon/award_icon.png",
+  iconWidth = 31*215/230, iconHeight = 31,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+JunosLatLong <- data.frame(
+  lat = c(52.125988, 52.11752, 52.1175575, 52.1183833, 52.117296, 52.1304495, 52.124692, 52.1299684, 52.1298614, 52.1314691, 52.119401, 52.1263964),
+  lng = c(-106.672841,-106.6565027,-106.658324,-106.6584276,-106.6586778,-106.6348629,-106.6726498,-106.6373967,-106.6612762,-106.6662608,-106.6557499,-106.6784025)
+)
+
+JunosPopup <- c("9 Mile Legacy Brewing", "Amigos Cantina", "Black Cat Tavern", "The Broadway Theatre", "Buds on Broadway", "Convocation Hall", "Drift Sidewalk Cafe", "Louis", "The Bassment", "Capitol Music Club", "On the Boards at the Refinery", "The Underground Cafe")
+
+JunosLatLong %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(icon = JunosIcon, popup = JunosPopup)
+
+```
+
+**Note**: this year the Junos and JunoFest has been cancelled due to the public health emergency related to COVID-19
