@@ -1,0 +1,95 @@
+---
+title: "Coronavirus disease (COVID-19) Pandemic"
+author: "Kevin Bitinsky"
+date: "March 25, 2020"
+output:
+  html_document:
+    df_print: paged
+always_allow_html: yes
+---
+
+
+# What is this Presentation?
+This is an assignment for the Coursera / Johns Hopkins Data Science course, __Developing Data Prodcuts__. It is presentation using R Markdown that features a plot created with Plotly. 
+
+To demonstrate the usage of R Markdown and Plotly, I have chosen to demonstrate how the COVID-19 pandemic has affected the world by showing the current infection statitstics on a Plotly chloropleth map.
+
+## What is COVID-19?
+
+According to the [World Health Organization](https://www.who.int/), 
+>"COVID-19 is the infectious disease caused by the most recently discovered coronavirus. This new virus and disease were unknown before the outbreak began in Wuhan, China, in December 2019."
+
+The data is courtesy of the [European Centre for Disease Prevention and Control](https://www.ecdc.europa.eu/)
+
+```{r data_retrieval, echo=TRUE, message=FALSE, warning=FALSE, results=FALSE}
+# Data, and the following code snippet courtesy of :https://www.ecdc.europa.eu/
+library(readxl)
+library(httr)
+url <- paste("https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-",
+             format(Sys.time(), "%Y-%m-%d"), 
+             ".xlsx", sep = "")
+GET(url, authenticate(":", ":", type="ntlm"), write_disk(tf <- tempfile(fileext = ".xlsx")))
+data <- read_excel(tf)
+##### End of code snippet
+```
+
+Manipulate the data to summarize Cases by Country.
+I needed to groub_by both the *Country* name and the *GeoId* or else I seemed to be missing some, but not all, multiple word countries such as USA and UK (but not others such as UAE) when charting it in Plotly. 
+* I could have updated the data for the USA and UK specifically, but could not be sure that I would not be missing some other countries.
+```{r data_manipulation, echo=TRUE, message=FALSE, warning=FALSE, results=FALSE}
+library(dplyr)
+
+colnames(data)[7] <- "Country"
+df <- data %>% 
+  group_by(Country, GeoId) %>%
+  summarize(Cases = sum(Cases))
+```
+
+
+Added two traces, one for Country and one for GeoId
+
+```{r plotly_creation, echo=TRUE, message=FALSE, warning=FALSE}
+# Followed the model as demonstrated in the plotly documentation at: https://plotly.com/r/choropleth-maps/
+library(plotly)
+# dark grey boundaries
+l <- list(color = toRGB("darkgrey"), width = 0.5)
+
+# specify map projection/options
+g <- list(
+  showframe = TRUE,
+  showcoastlines = FALSE,
+  projection = list(type = 'Mercator')
+)
+
+fig <- plot_geo(df, locationmode = 'country names')
+fig <- fig %>% add_trace(
+  z = ~Cases, color = ~Cases, colors = 'Reds',
+  text = ~Country, locations = ~Country, marker = list(line = l)
+)  %>% add_trace(
+  z = ~Cases, color = ~Cases, colors = 'Reds',
+  text = ~Country, locations = ~GeoId, marker = list(line = l), showscale=FALSE
+) 
+  
+fig <- fig %>% colorbar(title = "# of Cases")
+fig <- fig %>% layout(
+  title = paste('Cases of COVID-19', Sys.Date()),
+  geo = g,autosize = F, width = 900, height = 900,
+  margin = list(
+      r = 10, 
+      t = 25, 
+      b = 10, 
+      l = 10
+    )
+)
+
+fig
+```
+
+While it is not currently perfect, I hope that it does demonstrate a basic usage of Plotly.
+
+You should be able to zoom in and scroll around to specific geographic areas
+
+## References
+
+- [The Plolty Website](https://plot.ly/)
+- [The Plotly World Chloropleth Map](https://plotly.com/r/choropleth-maps/)
