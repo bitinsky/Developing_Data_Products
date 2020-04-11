@@ -7,4 +7,4 @@ https://bitinsky.github.io/Developing_Data_Products/week2_leaflet_assignment/wee
 https://bitinsky.github.io/Developing_Data_Products/week3_plotly_assignment/plotly.html
 
 ## Assigment 3, Course Projecr
-https://bitinsky.github.io/Developing_Data_Products/week4_shiny_assignment/index.html
+https://bitinsky.github.io/Developing_Data_Products/week4_shiny_assignment/week4.html
