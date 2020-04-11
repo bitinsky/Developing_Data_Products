@@ -14,7 +14,7 @@ library(readr)
 
 The purpose  of this project is:
 
-1. To produce a reproducible pitch using Slidify or Rstudio Presenter, which is this document that you are reading. 
+1. To produce a reproducible pitch using Slidify or Rstudio Presenter, which is this document that you are reading. Located at: <https://bitinsky.github.io/Developing_Data_Products/week4_shiny_assignment/week4.html>
 2. To demonstrate a Shiny application that is deployed to Rstudio's servers, which is located at: <https://bitinsky.shinyapps.io/IPF_statistics/>.
 
 All source code may be found at: <https://github.com/bitinsky/Developing_Data_Products/tree/gh-pages/week4_shiny_assignment/>
