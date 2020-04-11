@@ -5,3 +5,6 @@ https://bitinsky.github.io/Developing_Data_Products/week2_leaflet_assignment/wee
 
 ## Assignment 2, Using Ploty
 https://bitinsky.github.io/Developing_Data_Products/week3_plotly_assignment/plotly.html
+
+## Assigment 3, Course Projecr
+https://bitinsky.github.io/Developing_Data_Products/week4_shiny_assignment/index.html
