@@ -25,6 +25,8 @@ It does this by producing a boxplot, by event and gender - which may be selected
 
 The following example boxplot shows the median weight (the line) squatted for all lifters in the IPF, the interquartile range (the box) and all of the outliers.
 
+The app will dynamically (using REACTIVE) determine what data to use from the dataset.
+
 ## Example BoxPlot
 
 ```{r data, echo = TRUE, message = FALSE, warning=FALSE}
