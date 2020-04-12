@@ -27,8 +27,9 @@ server <- function(input, output) {
             ylab="kilograms of weight lifted (kg)",
             col="orange",
             border="brown")
-    
   })
+  
+  output$summary <- renderText({summary(df_subset())})
   
   output$dt <- renderDataTable({
     df_subset() 
@@ -44,5 +45,7 @@ server <- function(input, output) {
     "","All data is courtesy of <a href = 'https://www.openpowerlifting.org/'>Open Powerlifting</a>",
     sep="<br/>"))
   })
+  
+  
    
 }

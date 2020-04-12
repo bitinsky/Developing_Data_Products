@@ -22,7 +22,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                          choices = c("Male" = "M",
                                      "Female" = "F"),
                                     # "Other" = "Mx"), # Mx not used in this Federation
-                         selected = "M")
+                         selected = "M"),
       
     ),
     
@@ -31,7 +31,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
       # Output: Box and Whisker plot ----
       tabsetPanel(
         tabPanel("Summary", htmlOutput("text1")),
-        tabPanel("Plot", plotOutput("plot")),
+        tabPanel("Plot", plotOutput("plot"),textOutput("summary")),
         tabPanel("Table",dataTableOutput("dt")) 
       )
     )
