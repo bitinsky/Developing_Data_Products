@@ -36,9 +36,16 @@ boxplot(data$Best3SquatKg, main = "Squat", ylab = "Weight in kg")
 
 
 ## The Dataset
-
-```{r structure, echo = TRUE}
-str(data)
+The dataset is reactively filtered by the input parameters, as well as summarizing the data. 
+```{r structure, echo = TRUE, eval=FALSE}
+  df_subset <- reactive({
+    df %>% 
+      filter(Sex == input$gender,
+             !is.na(input$event),
+             input$event > 0) %>% 
+          select(input$event)
+  })
+  output$summary <- renderText({summary(df_subset())})
 ```
 
 ## Limitations and References
